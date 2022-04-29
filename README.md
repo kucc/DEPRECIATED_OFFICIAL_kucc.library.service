@@ -1,1 +1,0 @@
-# kucc-library-service
