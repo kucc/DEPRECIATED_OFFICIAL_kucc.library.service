@@ -1,7 +1,8 @@
+import AppRouter from './components/Router';
 import './styles/font.css';
 
 function App() {
-  return <div className='App'></div>;
+  return <AppRouter />;
 }
 
 export default App;
