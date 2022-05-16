@@ -1,3 +1,4 @@
+import './App.css';
 import AppRouter from './components/Router';
 import './styles/font.css';
 
