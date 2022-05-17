@@ -1,12 +1,12 @@
 import { Route, HashRouter as Router, Routes } from 'react-router-dom';
 
-import { Footer } from './Footer';
+import { Header } from './Header';
 
 const AppRouter = () => {
   return (
     <Router>
       <Routes>
-        <Route path='/' element={<Footer />} />
+        <Route path='/' element={<Header />} />
       </Routes>
     </Router>
   );

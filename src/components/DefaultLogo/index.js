@@ -6,7 +6,6 @@ export const DefaultLogo = ({
   height,
   onClick,
   isPointer = false,
-  style,
 }) => {
   return (
     <img

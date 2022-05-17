@@ -1,17 +1,35 @@
 @font-face {
-	font-family: "Appple SD GothicNeo";
+	font-family: "AppleLi";
 	font-weight: 100;
-	src: url("../assets/fonts/AppleSDGothicNeo-Light.ttf") format("ttf");
+	src: url("../assets/fonts/AppleSDGothicNeo-Light.ttf");
 }
 
 @font-face {
-	font-family: "Appple SD GothicNeo";
+	font-family: "AppleMd";
 	font-weight: 400;
-	src: url("../assets/fonts/AppleSDGothicNeo-Medium.ttf") format("ttf");
+	src: url("../assets/fonts/AppleSDGothicNeo-Medium.ttf");
 }
 
 @font-face {
-	font-family: "Appple SD GothicNeo";
+	font-family: "AppleBo";
 	font-weight: 700;
-	src: url("../assets/fonts/AppleSDGothicNeo-Bold.ttf") format("ttf");
+	src: url("../assets/fonts/AppleSDGothicNeo-Bold.ttf");
+}
+
+@font-face {
+	font-family: "NexonBo";
+	font-weight: 700;
+	src: url("../assets/fonts/NEXONLv1GothicBold.ttf");
+}
+
+@font-face {
+	font-family: "NexonRe";
+	font-weight: 400;
+	src: url("../assets/fonts/NEXONLv1GothicRegular.ttf");
+}
+
+@font-face {
+	font-family: "NexonLi";
+	font-weight: 300;
+	src: url("../assets/fonts/NEXONLv1GothicLight.ttf");
 }
