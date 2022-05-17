@@ -16,7 +16,7 @@ import {
   StyledHeaderLogoContainer,
   StyledHeaderText,
   StyledHeaderTextContainer,
-} from './styles';
+} from './style';
 
 export const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
