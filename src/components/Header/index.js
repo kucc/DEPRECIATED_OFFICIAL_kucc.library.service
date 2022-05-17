@@ -22,20 +22,11 @@ export const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const auth = getAuth();
   const navigate = useNavigate();
-  useEffect(() => {
-    onAuthStateChanged(auth, user => {
-      if (user) {
-        setIsLoggedIn(true);
-      } else {
-        setIsLoggedIn(false);
-      }
-    });
-  }, [auth]);
   const onSocialClick = async name => {
     let provider;
-    if (name === 'google') {
+    if (name === 'Google') {
       provider = new GoogleAuthProvider();
-    } else if (name === 'github') {
+    } else if (name === 'GitHub') {
       provider = new GithubAuthProvider();
     }
     await signInWithPopup(auth, provider);
@@ -44,6 +35,12 @@ export const Header = () => {
     authService.signOut();
     navigate('/');
   };
+  const arr = ['Google', 'GitHub'];
+  useEffect(() => {
+    onAuthStateChanged(auth, user => {
+      user ? setIsLoggedIn(true) : setIsLoggedIn(false);
+    });
+  }, [auth]);
   return (
     <>
       <StyledHeaderContainer>
@@ -69,12 +66,15 @@ export const Header = () => {
             </>
           ) : (
             <>
-              <StyledHeaderText onClick={() => onSocialClick('google')}>
-                Google로 계속하기
-              </StyledHeaderText>
-              <StyledHeaderText onClick={() => onSocialClick('github')}>
-                GitHub로 계속하기
-              </StyledHeaderText>
+              {arr.map((v, index) => {
+                return (
+                  <StyledHeaderText
+                    key={index}
+                    onClick={() => onSocialClick(v)}>
+                    {v}로 계속하기
+                  </StyledHeaderText>
+                );
+              })}
             </>
           )}
         </StyledHeaderTextContainer>
