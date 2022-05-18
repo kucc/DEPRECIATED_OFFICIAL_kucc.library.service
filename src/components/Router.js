@@ -1,5 +1,6 @@
 import { Route, HashRouter as Router, Routes } from 'react-router-dom';
 
+
 import SearchBox from './SearchBox/SearchBox';
 import SideBar from './SideBar/SideBar';
 
@@ -17,6 +18,7 @@ const myGenreArray = [
   '기타',
 ];
 
+
 const AppRouter = () => {
   return (
     <Router>
@@ -24,6 +26,7 @@ const AppRouter = () => {
         <Route
           path='/'
           element={
+
             <>
               <SideBar genreArray={myGenreArray} />
               <SearchBox />
