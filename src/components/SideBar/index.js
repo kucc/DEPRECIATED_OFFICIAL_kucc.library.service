@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import SideBarComp from './SideBarComp';
 import { StyledSideBar } from './style';
 
-function SideBar({ genreArray }) {
+export function SideBar({ genreArray }) {
   return (
     <StyledSideBar>
       {genreArray.map(genre => (
@@ -16,5 +16,3 @@ function SideBar({ genreArray }) {
 SideBar.propTypes = {
   genreArray: PropTypes.array.isRequired,
 };
-
-export default SideBar;
