@@ -1,6 +1,23 @@
 import { Route, HashRouter as Router, Routes } from 'react-router-dom';
 
-import { Book } from './Book';
+
+import SearchBox from './SearchBox/SearchBox';
+import SideBar from './SideBar/SideBar';
+
+//genreArray db 기반으로 변경
+const myGenreArray = [
+  '인공지능',
+  '데이터분석',
+  '디자인',
+  '게임',
+  '하드웨어',
+  '언어',
+  '앱',
+  '이론',
+  '웹',
+  '기타',
+];
+
 
 const AppRouter = () => {
   return (
@@ -9,13 +26,11 @@ const AppRouter = () => {
         <Route
           path='/'
           element={
-            <Book
-              title='책 이름입니다'
-              author='나'
-              desc='책 설명책 설명책 설명책 설명책 설명책 설명책 설명책 설명책 설명책 설명책 설명책 설명책 설명책 설명책 설명책 설명책 설명책 설명책 설명책 설명책 설명책 설명책 설명책 설명'
-              publisher='출판사'
-              pubDate={new Date()}
-            />
+
+            <>
+              <SideBar genreArray={myGenreArray} />
+              <SearchBox />
+            </>
           }
         />
       </Routes>
