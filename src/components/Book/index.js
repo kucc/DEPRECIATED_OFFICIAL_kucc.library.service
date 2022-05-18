@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import PropTypes from 'prop-types';
 
@@ -19,8 +20,9 @@ export const Book = ({
   bookCover,
   desc,
 }) => {
+  const navigate = useNavigate();
   const onClick = () => {
-    window.location.href = '/#';
+    navigate('/#');
   };
   return (
     <StyledBookContainer onClick={onClick}>

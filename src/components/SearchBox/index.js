@@ -4,7 +4,7 @@ import { useSetRecoilState } from 'recoil';
 import { searchTermState } from '../Atom/atom';
 import { StyledSearchBox, StyledSearchBtn, StyledSearchDiv } from './style';
 
-function SearchBox() {
+export function SearchBox() {
   const [inputText, setInputText] = useState('');
 
   const setSearchTerm = useSetRecoilState(searchTermState);
@@ -36,5 +36,3 @@ function SearchBox() {
     </StyledSearchDiv>
   );
 }
-
-export default SearchBox;
