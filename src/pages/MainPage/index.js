@@ -1,6 +1,8 @@
 import React from 'react';
+import { useRecoilValue } from 'recoil';
 
 import { Book, Footer, Header, SearchBox, SideBar } from '../../components';
+import { searchTermState } from '../../components/Atom/atom';
 
 //genreArray db 기반으로 변경
 const myGenreArray = [
@@ -17,6 +19,8 @@ const myGenreArray = [
 ];
 
 export const MainPage = () => {
+  const text = useRecoilValue(searchTermState);
+  console.log(text);
   return (
     <>
       <Header />

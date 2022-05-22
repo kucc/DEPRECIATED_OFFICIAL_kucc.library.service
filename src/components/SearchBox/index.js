@@ -1,16 +1,13 @@
-import { useState } from 'react';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 
 import { searchTermState } from '../Atom/atom';
 import { StyledSearchBox, StyledSearchBtn, StyledSearchDiv } from './style';
 
 export function SearchBox() {
-  const [inputText, setInputText] = useState('');
-
-  const setSearchTerm = useSetRecoilState(searchTermState);
+  const [searchTerm, setSearchTerm] = useRecoilState(searchTermState);
 
   const onChangeText = e => {
-    setInputText(e.target.value);
+    setSearchTerm(e.target.value);
   };
 
   const onClickBtn = () => {
@@ -28,7 +25,7 @@ export function SearchBox() {
     <StyledSearchDiv>
       <StyledSearchBox
         type='text'
-        value={inputText}
+        value={searchTerm}
         onChange={onChangeText}
         onKeyPress={onKeyPressEnter}
       />

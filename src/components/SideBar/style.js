@@ -18,4 +18,5 @@ export const StyledSideBar = styled.div`
   margin-left: 40px;
   margin-top: 20px;
   float: left;
+  cursor: pointer;
 `;
