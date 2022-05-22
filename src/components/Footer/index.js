@@ -14,7 +14,7 @@ import {
 } from './style';
 
 export const Footer = () => {
-  const history = useNavigate();
+  const navigate = useNavigate();
   const isReducedScreen = useMediaQuery({ query: '(max-width: 1224px)' });
   const onImgClick = () => {
     const path = window.location.pathname;
@@ -24,7 +24,7 @@ export const Footer = () => {
         behavior: 'smooth',
       });
     } else {
-      history.push('/');
+      navigate('/');
       window.scrollTo(0, 0);
     }
   };
@@ -40,7 +40,7 @@ export const Footer = () => {
         <StyledFooterBox>
           <StyledFooterTitle>Developers</StyledFooterTitle>
           <StyledFooterVerticalLine />
-          <StyledFooterDesc>이지운 이희준 최현서</StyledFooterDesc>
+          <StyledFooterDesc>신동현 이지운 이희준 최현서</StyledFooterDesc>
         </StyledFooterBox>
         <StyledHorizontalLine />
         <StyledFooterBox>

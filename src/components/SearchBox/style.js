@@ -21,4 +21,5 @@ export const StyledSearchBtn = styled.button`
   background-color: tomato;
   border-radius: 20px;
   font-family: 'NexonBo';
+  cursor: pointer;
 `;
