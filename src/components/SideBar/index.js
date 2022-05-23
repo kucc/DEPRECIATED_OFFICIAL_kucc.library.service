@@ -1,18 +1,13 @@
-import PropTypes from 'prop-types';
-
+import { GenreArray } from '../../constants/GenreArray';
 import SideBarComp from './SideBarComp';
 import { StyledSideBar } from './style';
 
-export function SideBar({ genreArray }) {
+export function SideBar() {
   return (
     <StyledSideBar>
-      {genreArray.map(genre => (
+      {GenreArray.map(genre => (
         <SideBarComp key={genre} genre={genre} />
       ))}
     </StyledSideBar>
   );
 }
-
-SideBar.propTypes = {
-  genreArray: PropTypes.array.isRequired,
-};

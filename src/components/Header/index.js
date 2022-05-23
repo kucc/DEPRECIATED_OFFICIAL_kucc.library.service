@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 
 import {
   GithubAuthProvider,
@@ -8,8 +9,13 @@ import {
   onAuthStateChanged,
   signInWithPopup,
 } from 'firebase/auth';
+import { doc, setDoc } from 'firebase/firestore';
+import { storeService } from 'src/firebase.js';
 import { authService } from 'src/firebase.js';
 
+import { GenreArray } from '../../constants/GenreArray';
+import { RandomEmoji } from '../../constants/RandomEmoji';
+import { loginState } from '../Atom/atom';
 import { DefaultLogo } from '../DefaultLogo';
 import {
   StyledHeaderContainer,
@@ -19,7 +25,7 @@ import {
 } from './style';
 
 export const Header = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
   const auth = getAuth();
   const navigate = useNavigate();
   const onSocialClick = async name => {
@@ -29,7 +35,17 @@ export const Header = () => {
     } else if (name === 'GitHub') {
       provider = new GithubAuthProvider();
     }
-    await signInWithPopup(auth, provider);
+    const result = await signInWithPopup(auth, provider);
+    await setDoc(doc(storeService, 'users', result.user.uid), {
+      name: result.user.displayName,
+      emoji: RandomEmoji(),
+      history: {},
+      preference: [
+        GenreArray[Math.floor(Math.random() * GenreArray.length)],
+        GenreArray[Math.floor(Math.random() * GenreArray.length)],
+        GenreArray[Math.floor(Math.random() * GenreArray.length)],
+      ],
+    });
   };
   const onLogOutClick = () => {
     authService.signOut();
@@ -40,7 +56,7 @@ export const Header = () => {
     onAuthStateChanged(auth, user => {
       user ? setIsLoggedIn(true) : setIsLoggedIn(false);
     });
-  }, [auth]);
+  }, [auth, setIsLoggedIn]);
   return (
     <>
       <StyledHeaderContainer>
