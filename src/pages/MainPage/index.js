@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Book, Footer, Header, SearchBox, SideBar } from '../../components';
 import { BorrowReturn } from '../../components/BorrowReturn';
+import { Search } from '../../components/Search';
 import { GenreArray } from '../../constants/GenreArray';
 
 export const MainPage = () => {
@@ -10,6 +11,7 @@ export const MainPage = () => {
       <Header />
       <SideBar genreArray={GenreArray} />
       <SearchBox />
+      <Search />
       <Book
         title='책'
         author='s'
