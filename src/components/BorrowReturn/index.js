@@ -1,19 +1,19 @@
 import { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { getAuth } from 'firebase/auth';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { storeService } from 'src/firebase.js';
 
-import { loginState } from '../Atom/atom';
+import { bookDataState, borrowState, loginState } from '../Atom/atom';
 import { StyledBorrowReturnButton, StyledBorrowReturnContainer } from './style';
 
 export const BorrowReturn = () => {
   const isLoggedin = useRecoilValue(loginState);
   const [userName, setUserName] = useState('');
-  const [isBorrowed, setIsBorrowed] = useState(false);
-  const [bookData, setBookData] = useState(null);
-  const bookRef = doc(storeService, 'books', 'A1');
+  const [isBorrowed, setIsBorrowed] = useRecoilState(borrowState);
+  const [bookData, setBookData] = useRecoilState(bookDataState);
+  const bookRef = doc(storeService, 'books', 'A1'); // A1 -> id로 변경
 
   const auth = getAuth();
   const user = auth.currentUser;
@@ -28,7 +28,7 @@ export const BorrowReturn = () => {
     }
   }, [user]);
 
-  const BorrowReturnUpdate = async () => {
+  const borrowReturnUpdate = async () => {
     if (isLoggedin) {
       if (isBorrowed === false) {
         await updateDoc(bookRef, {
@@ -49,6 +49,7 @@ export const BorrowReturn = () => {
       }
     } else alert('로그인 해주세요!');
   };
+
   useEffect(() => {
     if (bookData) {
       if (bookData.borrower === userName) {
@@ -65,7 +66,7 @@ export const BorrowReturn = () => {
         <StyledBorrowReturnContainer>
           <StyledBorrowReturnButton>App</StyledBorrowReturnButton>
           <StyledBorrowReturnButton
-            onClick={BorrowReturnUpdate}
+            onClick={borrowReturnUpdate}
             style={{ color: '#CF0000' }}>
             {bookData && '대출'}
           </StyledBorrowReturnButton>
@@ -76,7 +77,7 @@ export const BorrowReturn = () => {
         <StyledBorrowReturnContainer>
           <StyledBorrowReturnButton>App</StyledBorrowReturnButton>
           <StyledBorrowReturnButton
-            onClick={BorrowReturnUpdate}
+            onClick={borrowReturnUpdate}
             style={{ color: '#CF0000' }}>
             {bookData && '반납'}
           </StyledBorrowReturnButton>
@@ -84,6 +85,5 @@ export const BorrowReturn = () => {
       );
     }
   };
-
   return borrowReturnButton();
 };
