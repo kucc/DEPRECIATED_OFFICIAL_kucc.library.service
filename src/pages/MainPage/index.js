@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Book, Footer, Header, SearchBox, SideBar } from '../../components';
+import { BookDetail } from '../../components/BookDetail/index';
 import { BorrowReturn } from '../../components/BorrowReturn';
 import { GenreArray } from '../../constants/GenreArray';
 
@@ -19,6 +20,7 @@ export const MainPage = () => {
         desc='d'
       />
       <BorrowReturn />
+      <BookDetail />
       <Footer />
     </>
   );
