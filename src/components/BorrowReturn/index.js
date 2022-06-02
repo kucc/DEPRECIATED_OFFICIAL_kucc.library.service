@@ -17,16 +17,11 @@ export const BorrowReturn = () => {
 
   const auth = getAuth();
   const user = auth.currentUser;
+
   const fetchBookData = async () => {
     const getBookData = await getDoc(doc(storeService, 'books', 'A1')); // A1 -> id로 변경
     setBookData(getBookData.data());
   };
-  useEffect(() => {
-    fetchBookData();
-    if (user) {
-      setUserName(user.displayName);
-    }
-  }, [user]);
 
   const borrowReturnUpdate = async () => {
     if (isLoggedin) {
@@ -38,7 +33,7 @@ export const BorrowReturn = () => {
         });
         setIsBorrowed(true);
         alert('대출이 완료되었습니다!');
-      } else if (isBorrowed === true) {
+      } else {
         await updateDoc(bookRef, {
           borrowData: false,
           borrower: null,
@@ -51,6 +46,13 @@ export const BorrowReturn = () => {
   };
 
   useEffect(() => {
+    fetchBookData();
+    if (user) {
+      setUserName(user.displayName);
+    }
+  }, [bookData]);
+
+  useEffect(() => {
     if (bookData) {
       if (bookData.borrower === userName) {
         setIsBorrowed(true);
@@ -58,32 +60,19 @@ export const BorrowReturn = () => {
         setIsBorrowed(false);
       }
     }
-  }, [bookData, userName]);
+  }, [bookData]);
 
-  const borrowReturnButton = () => {
-    if (isBorrowed === false) {
-      return (
-        <StyledBorrowReturnContainer>
-          <StyledBorrowReturnButton>App</StyledBorrowReturnButton>
-          <StyledBorrowReturnButton
-            onClick={borrowReturnUpdate}
-            style={{ color: '#CF0000' }}>
-            {bookData && '대출'}
-          </StyledBorrowReturnButton>
-        </StyledBorrowReturnContainer>
-      );
-    } else if (isBorrowed === true) {
-      return (
-        <StyledBorrowReturnContainer>
-          <StyledBorrowReturnButton>App</StyledBorrowReturnButton>
-          <StyledBorrowReturnButton
-            onClick={borrowReturnUpdate}
-            style={{ color: '#CF0000' }}>
-            {bookData && '반납'}
-          </StyledBorrowReturnButton>
-        </StyledBorrowReturnContainer>
-      );
-    }
+  const borrowReturnButton = parameter => {
+    return (
+      <StyledBorrowReturnContainer>
+        <StyledBorrowReturnButton>App</StyledBorrowReturnButton>
+        <StyledBorrowReturnButton
+          onClick={borrowReturnUpdate}
+          style={{ color: '#CF0000' }}>
+          {bookData && parameter}
+        </StyledBorrowReturnButton>
+      </StyledBorrowReturnContainer>
+    );
   };
-  return borrowReturnButton();
+  return isBorrowed ? borrowReturnButton('반납') : borrowReturnButton('대출');
 };

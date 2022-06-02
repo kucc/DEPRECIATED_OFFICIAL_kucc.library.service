@@ -16,20 +16,14 @@ export const BookDetail = () => {
   const auth = getAuth();
   const user = auth.currentUser;
 
-  useEffect(() => {
-    if (user) {
-      setUserName(user.displayName);
-    }
-  }, [user]);
-
   const bookTerm = () => {
-    if (isBorrowed === true) {
+    if (isBorrowed) {
       const date = bookData.borrowDate.toDate();
       const term = new Date(date.setDate(date.getDate() + 14));
       setDueDate(
         term.getFullYear() + '/' + (term.getMonth() + 1) + '/' + term.getDate(),
       );
-    } else if (isBorrowed === false) {
+    } else {
       const date = new Date();
       const term = new Date(date.setDate(date.getDate() + 14));
       setDueDate(
@@ -39,12 +33,14 @@ export const BookDetail = () => {
   };
 
   const bookBorrower = () => {
-    if (isBorrowed === true) {
-      setBorrower(userName);
-    } else if (isBorrowed === false) {
-      setBorrower('대출자가 없습니다!');
-    }
+    isBorrowed ? setBorrower(userName) : setBorrower('대출자가 없습니다!');
   };
+
+  useEffect(() => {
+    if (user) {
+      setUserName(user.displayName);
+    }
+  }, [user]);
 
   useEffect(() => {
     bookTerm();
@@ -54,9 +50,7 @@ export const BookDetail = () => {
   return (
     <StyledBookDetailContainer>
       <StyledBookDetail>대출 기한: {dueDate}</StyledBookDetail>
-      <StyledBookDetail style={{ fontSize: '14px' }}>
-        책 소개: {bookData.info}
-      </StyledBookDetail>
+      <StyledBookDetail>책 소개: {bookData.info}</StyledBookDetail>
       <StyledBookDetail>대출자: {borrower}</StyledBookDetail>
     </StyledBookDetailContainer>
   );
