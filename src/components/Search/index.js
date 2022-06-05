@@ -18,6 +18,7 @@ export function Search(Booklist) {
   const [tempBooklist, setTempBookList] = useState([]);
   const [genre, setGenre] = useState([]);
   const [search, setSearch] = useState([]);
+  const [query, setQuery] = useState('');
 
   //tempBookList -> Booklist로
   const getBooks = async () => {
@@ -27,6 +28,8 @@ export function Search(Booklist) {
       bookList.push(book.data());
     });
     setTempBookList(bookList);
+    setGenre(bookList);
+    setSearch(bookList);
   };
 
   useEffect(() => {
@@ -43,16 +46,23 @@ export function Search(Booklist) {
     } else {
       setGenre(tempBooklist);
     }
+  }, [genreFilter]);
 
+  useEffect(() => {
     if (searchTerm.length) {
+      setQuery('^');
       const searchList = searchTerm.trim().split(/\s+/);
-      const queryList = ['^'];
       searchList.forEach(word => {
-        queryList.push('(?=.*' + word.toLowerCase() + ')');
+        setQuery(prev => prev + '(?=.*' + word.toLowerCase() + ')');
       });
-      queryList.push('.+');
-      const query = queryList.join('');
+      setQuery(prev => prev + '.+');
+    } else {
+      setQuery('');
+    }
+  }, [searchTerm]);
 
+  useEffect(() => {
+    if (query.length) {
       setSearch(
         Object.values(tempBooklist).filter(
           book =>
@@ -64,7 +74,7 @@ export function Search(Booklist) {
     } else {
       setSearch(tempBooklist);
     }
-  }, [searchTerm, genreFilter]);
+  }, [query]);
 
   useEffect(() => {
     setFilteredBoooksState(genre.filter(book => search.includes(book)));
