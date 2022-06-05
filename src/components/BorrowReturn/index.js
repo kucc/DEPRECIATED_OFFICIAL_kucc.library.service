@@ -1,34 +1,29 @@
 import { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { getAuth } from 'firebase/auth';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { storeService } from 'src/firebase.js';
 
-import { loginState } from '../Atom/atom';
+import { bookDataState, borrowState, loginState } from '../Atom/atom';
 import { StyledBorrowReturnButton, StyledBorrowReturnContainer } from './style';
 
 export const BorrowReturn = () => {
   const isLoggedin = useRecoilValue(loginState);
   const [userName, setUserName] = useState('');
-  const [isBorrowed, setIsBorrowed] = useState(false);
-  const [bookData, setBookData] = useState(null);
-  const bookRef = doc(storeService, 'books', 'A1');
+  const [isBorrowed, setIsBorrowed] = useRecoilState(borrowState);
+  const [bookData, setBookData] = useRecoilState(bookDataState);
+  const bookRef = doc(storeService, 'books', 'A1'); // A1 -> id로 변경
 
   const auth = getAuth();
   const user = auth.currentUser;
+
   const fetchBookData = async () => {
     const getBookData = await getDoc(doc(storeService, 'books', 'A1')); // A1 -> id로 변경
     setBookData(getBookData.data());
   };
-  useEffect(() => {
-    fetchBookData();
-    if (user) {
-      setUserName(user.displayName);
-    }
-  }, [user]);
 
-  const BorrowReturnUpdate = async () => {
+  const borrowReturnUpdate = async () => {
     if (isLoggedin) {
       if (isBorrowed === false) {
         await updateDoc(bookRef, {
@@ -38,7 +33,7 @@ export const BorrowReturn = () => {
         });
         setIsBorrowed(true);
         alert('대출이 완료되었습니다!');
-      } else if (isBorrowed === true) {
+      } else {
         await updateDoc(bookRef, {
           borrowData: false,
           borrower: null,
@@ -49,6 +44,14 @@ export const BorrowReturn = () => {
       }
     } else alert('로그인 해주세요!');
   };
+
+  useEffect(() => {
+    fetchBookData();
+    if (user) {
+      setUserName(user.displayName);
+    }
+  }, [bookData]);
+
   useEffect(() => {
     if (bookData) {
       if (bookData.borrower === userName) {
@@ -57,33 +60,19 @@ export const BorrowReturn = () => {
         setIsBorrowed(false);
       }
     }
-  }, [bookData, userName]);
+  }, [bookData]);
 
-  const borrowReturnButton = () => {
-    if (isBorrowed === false) {
-      return (
-        <StyledBorrowReturnContainer>
-          <StyledBorrowReturnButton>App</StyledBorrowReturnButton>
-          <StyledBorrowReturnButton
-            onClick={BorrowReturnUpdate}
-            style={{ color: '#CF0000' }}>
-            {bookData && '대출'}
-          </StyledBorrowReturnButton>
-        </StyledBorrowReturnContainer>
-      );
-    } else if (isBorrowed === true) {
-      return (
-        <StyledBorrowReturnContainer>
-          <StyledBorrowReturnButton>App</StyledBorrowReturnButton>
-          <StyledBorrowReturnButton
-            onClick={BorrowReturnUpdate}
-            style={{ color: '#CF0000' }}>
-            {bookData && '반납'}
-          </StyledBorrowReturnButton>
-        </StyledBorrowReturnContainer>
-      );
-    }
+  const borrowReturnButton = parameter => {
+    return (
+      <StyledBorrowReturnContainer>
+        <StyledBorrowReturnButton>App</StyledBorrowReturnButton>
+        <StyledBorrowReturnButton
+          onClick={borrowReturnUpdate}
+          style={{ color: '#CF0000' }}>
+          {bookData && parameter}
+        </StyledBorrowReturnButton>
+      </StyledBorrowReturnContainer>
+    );
   };
-
-  return borrowReturnButton();
+  return isBorrowed ? borrowReturnButton('반납') : borrowReturnButton('대출');
 };

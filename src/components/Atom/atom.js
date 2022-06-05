@@ -20,4 +20,22 @@ const filteredBooksState = atom({
   default: [],
 });
 
-export { searchTermState, genreFilterState, loginState, filteredBooksState };
+
+const borrowState = atom({
+  key: 'borrowState',
+  default: '',
+});
+
+const bookDataState = atom({
+  key: 'bookDataState',
+  default: '',
+});
+
+export {
+  searchTermState,
+  genreFilterState,
+  loginState,
+  borrowState,
+  bookDataState,
+  filteredBooksState,
+};

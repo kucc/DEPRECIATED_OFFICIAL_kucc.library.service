@@ -3,6 +3,7 @@ import { useRecoilValue } from 'recoil';
 
 import { Book, Footer, Header, SearchBox, SideBar } from '../../components';
 import { filteredBooksState } from '../../components/Atom/atom';
+import { BookDetail } from '../../components/BookDetail/index';
 import { BorrowReturn } from '../../components/BorrowReturn';
 import { Search } from '../../components/Search';
 import { GenreArray } from '../../constants/GenreArray';
@@ -27,6 +28,7 @@ export const MainPage = () => {
         />
       ))}
       <BorrowReturn />
+      <BookDetail />
       <Footer />
     </>
   );
