@@ -15,4 +15,9 @@ const loginState = atom({
   default: '',
 });
 
-export { searchTermState, genreFilterState, loginState };
+const filteredBooksState = atom({
+  key: 'filteredBooksState',
+  default: [],
+});
+
+export { searchTermState, genreFilterState, loginState, filteredBooksState };

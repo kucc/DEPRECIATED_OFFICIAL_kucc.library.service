@@ -1,25 +1,31 @@
 import React from 'react';
+import { useRecoilValue } from 'recoil';
 
 import { Book, Footer, Header, SearchBox, SideBar } from '../../components';
+import { filteredBooksState } from '../../components/Atom/atom';
 import { BorrowReturn } from '../../components/BorrowReturn';
 import { Search } from '../../components/Search';
 import { GenreArray } from '../../constants/GenreArray';
 
 export const MainPage = () => {
+  const filteredbooks = useRecoilValue(filteredBooksState);
   return (
     <>
       <Header />
       <SideBar genreArray={GenreArray} />
       <SearchBox />
       <Search />
-      <Book
-        title='책'
-        author='s'
-        publisher='d'
-        pubDate={new Date()}
-        bookCover='s'
-        desc='d'
-      />
+      {Object.values(filteredbooks).map(book => (
+        <Book
+          key={book.name}
+          title={book.name}
+          author={book.author}
+          publisher='d'
+          pubDate={new Date()}
+          bookCover=''
+          desc='d'
+        />
+      ))}
       <BorrowReturn />
       <Footer />
     </>

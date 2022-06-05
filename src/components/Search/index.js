@@ -1,17 +1,20 @@
-import { useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useEffect, useState } from 'react';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import { collection, getDocs } from 'firebase/firestore';
 import PropTypes from 'prop-types';
 
 import { storeService } from '../../firebase';
-
-const { genreFilterState, searchTermState } = require('../Atom/atom');
-const { useEffect } = require('react');
+import {
+  filteredBooksState,
+  genreFilterState,
+  searchTermState,
+} from '../Atom/atom';
 
 export function Search(Booklist) {
   const searchTerm = useRecoilValue(searchTermState);
   const genreFilter = useRecoilValue(genreFilterState);
+  const setFilteredBoooksState = useSetRecoilState(filteredBooksState);
   const [tempBooklist, setTempBookList] = useState([]);
   const [genre, setGenre] = useState([]);
   const [search, setSearch] = useState([]);
@@ -19,18 +22,19 @@ export function Search(Booklist) {
   //tempBookList -> Booklist로
   const getBooks = async () => {
     const dbBooks = await getDocs(collection(storeService, 'books'));
+    const bookList = [];
     dbBooks.forEach(book => {
-      setTempBookList(prev => [...prev, book.data()]);
+      bookList.push(book.data());
     });
+    setTempBookList(bookList);
   };
 
   useEffect(() => {
     getBooks();
   }, []);
-  //
 
   useEffect(() => {
-    if (genreFilter != '') {
+    if (genreFilter.length) {
       setGenre(
         Object.values(tempBooklist).filter(
           book => book.classificationName.toString() === genreFilter,
@@ -40,13 +44,14 @@ export function Search(Booklist) {
       setGenre(tempBooklist);
     }
 
-    if (searchTerm != '') {
+    if (searchTerm.length) {
       const searchList = searchTerm.trim().split(/\s+/);
-      var query = '^';
+      const queryList = ['^'];
       searchList.forEach(word => {
-        query += '(?=.*' + word.toLowerCase() + ')';
+        queryList.push('(?=.*' + word.toLowerCase() + ')');
       });
-      query += '.+';
+      queryList.push('.+');
+      const query = queryList.join('');
 
       setSearch(
         Object.values(tempBooklist).filter(
@@ -57,14 +62,16 @@ export function Search(Booklist) {
         ),
       );
     } else {
-      setGenre(tempBooklist);
+      setSearch(tempBooklist);
     }
-
-    //return genre.filter(book => search.includes(book));
-    console.log(genre.filter(book => search.includes(book)));
   }, [searchTerm, genreFilter]);
+
+  useEffect(() => {
+    setFilteredBoooksState(genre.filter(book => search.includes(book)));
+  }, [search, genre]);
 }
 
 Search.propTypes = {
-  Booklist: PropTypes.array.isrequired,
+  //Booklist: PropTypes.array.isrequired,
+  Booklist: PropTypes.array,
 };
