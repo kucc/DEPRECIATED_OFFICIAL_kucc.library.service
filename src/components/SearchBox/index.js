@@ -10,26 +10,10 @@ export function SearchBox() {
     setSearchTerm(e.target.value);
   };
 
-  const onClickBtn = () => {
-    setSearchTerm(inputText);
-    setInputText('');
-  };
-
-  const onKeyPressEnter = e => {
-    if (e.key == 'Enter') {
-      onClickBtn();
-    }
-  };
-
   return (
     <StyledSearchDiv>
-      <StyledSearchBox
-        type='text'
-        value={searchTerm}
-        onChange={onChangeText}
-        onKeyPress={onKeyPressEnter}
-      />
-      <StyledSearchBtn onClick={onClickBtn}>검색</StyledSearchBtn>
+      <StyledSearchBox type='text' value={searchTerm} onChange={onChangeText} />
+      <StyledSearchBtn>검색</StyledSearchBtn>
     </StyledSearchDiv>
   );
 }

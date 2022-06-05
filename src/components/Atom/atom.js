@@ -15,6 +15,12 @@ const loginState = atom({
   default: '',
 });
 
+const filteredBooksState = atom({
+  key: 'filteredBooksState',
+  default: [],
+});
+
+
 const borrowState = atom({
   key: 'borrowState',
   default: '',
@@ -31,4 +37,5 @@ export {
   loginState,
   borrowState,
   bookDataState,
+  filteredBooksState,
 };
