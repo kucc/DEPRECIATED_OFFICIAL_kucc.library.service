@@ -5,7 +5,7 @@ import { getAuth } from 'firebase/auth';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { storeService } from 'src/firebase.js';
 
-import { bookDataState, borrowState, loginState } from '../Atom/atom';
+import { bookDataState, borrowState, loginState } from '../Atom';
 import { StyledBorrowReturnButton, StyledBorrowReturnContainer } from './style';
 
 export const BorrowReturn = () => {

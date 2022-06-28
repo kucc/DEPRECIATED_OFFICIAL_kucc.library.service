@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import { getAuth } from 'firebase/auth';
 
-import { bookDataState, borrowState } from '../Atom/atom';
+import { bookDataState, borrowState } from '../Atom';
 import { StyledBookDetail, StyledBookDetailContainer } from './style';
 
 export const BookDetail = () => {
@@ -33,7 +33,7 @@ export const BookDetail = () => {
   };
 
   const bookBorrower = () => {
-    isBorrowed ? setBorrower(userName) : setBorrower('대출자가 없습니다!');
+    isBorrowed ? setBorrower(userName) : setBorrower('대출자가 없습니다!!');
   };
 
   useEffect(() => {

@@ -22,7 +22,7 @@ export const Book = ({
 }) => {
   const navigate = useNavigate();
   const onClick = () => {
-    navigate('/#');
+    navigate('/A1');
   };
   return (
     <StyledBookContainer onClick={onClick}>
