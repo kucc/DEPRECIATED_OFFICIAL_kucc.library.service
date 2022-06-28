@@ -20,15 +20,4 @@ const borrowState = atom({
   default: '',
 });
 
-const bookDataState = atom({
-  key: 'bookDataState',
-  default: '',
-});
-
-export {
-  searchTermState,
-  genreFilterState,
-  loginState,
-  borrowState,
-  bookDataState,
-};
+export { searchTermState, genreFilterState, loginState, borrowState };
