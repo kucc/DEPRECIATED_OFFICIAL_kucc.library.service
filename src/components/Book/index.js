@@ -32,7 +32,7 @@ export const Book = ({
         {author + ' | ' + publisher + ' | ' + pubDate.toLocaleDateString()}
       </StyledBookInfo>
       <StyledImgContainer>
-        <img src={bookCover} />
+        <img src={bookCover} style={{ width: '180px', height: '288px' }} />
       </StyledImgContainer>
       <StyledBookDesc>{desc}</StyledBookDesc>
     </StyledBookContainer>
