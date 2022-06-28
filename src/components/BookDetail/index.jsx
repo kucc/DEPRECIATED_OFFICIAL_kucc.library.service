@@ -2,16 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import { getAuth } from 'firebase/auth';
+import { PropTypes } from 'prop-types';
 
-import { bookDataState, borrowState } from '../Atom';
+import { borrowState } from '../Atom';
 import { StyledBookDetail, StyledBookDetailContainer } from './style';
 
-export const BookDetail = () => {
+export const BookDetail = ({ bookData, info }) => {
   const [userName, setUserName] = useState('');
   const [borrower, setBorrower] = useState('');
   const [dueDate, setDueDate] = useState('');
   const isBorrowed = useRecoilValue(borrowState);
-  const bookData = useRecoilValue(bookDataState);
 
   const auth = getAuth();
   const user = auth.currentUser;
@@ -33,7 +33,7 @@ export const BookDetail = () => {
   };
 
   const bookBorrower = () => {
-    isBorrowed ? setBorrower(userName) : setBorrower('대출자가 없습니다!!');
+    isBorrowed ? setBorrower(userName) : setBorrower('NULL');
   };
 
   useEffect(() => {
@@ -50,8 +50,13 @@ export const BookDetail = () => {
   return (
     <StyledBookDetailContainer>
       <StyledBookDetail>대출 기한: {dueDate}</StyledBookDetail>
-      <StyledBookDetail>책 소개: {bookData.info}</StyledBookDetail>
+      <StyledBookDetail>책 소개: {info && info}</StyledBookDetail>
       <StyledBookDetail>대출자: {borrower}</StyledBookDetail>
     </StyledBookDetailContainer>
   );
+};
+
+BookDetail.propTypes = {
+  bookData: PropTypes.object,
+  info: PropTypes.string,
 };

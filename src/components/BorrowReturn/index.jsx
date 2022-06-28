@@ -2,29 +2,22 @@ import { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { getAuth } from 'firebase/auth';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { doc, updateDoc } from 'firebase/firestore';
 import { storeService } from 'src/firebase.js';
 
-import { bookDataState, borrowState, loginState } from '../Atom';
+import { borrowState, loginState } from '../Atom';
 import { StyledBorrowReturnButton, StyledBorrowReturnContainer } from './style';
 
-export const BorrowReturn = () => {
+export const BorrowReturn = ({ bookData, id }) => {
   const isLoggedin = useRecoilValue(loginState);
   const [userName, setUserName] = useState('');
   const [isBorrowed, setIsBorrowed] = useRecoilState(borrowState);
-  const [bookData, setBookData] = useRecoilState(bookDataState);
-  const bookRef = doc(storeService, 'books', 'A1'); // A1 -> id로 변경
-
   const auth = getAuth();
   const user = auth.currentUser;
 
-  const fetchBookData = async () => {
-    const getBookData = await getDoc(doc(storeService, 'books', 'A1')); // A1 -> id로 변경
-    setBookData(getBookData.data());
-  };
-
   const borrowReturnUpdate = async () => {
-    if (isLoggedin) {
+    if (isLoggedin && id) {
+      const bookRef = doc(storeService, 'books', id);
       if (isBorrowed === false) {
         await updateDoc(bookRef, {
           borrowData: true,
@@ -46,11 +39,10 @@ export const BorrowReturn = () => {
   };
 
   useEffect(() => {
-    fetchBookData();
     if (user) {
       setUserName(user.displayName);
     }
-  }, [bookData]);
+  }, [user]);
 
   useEffect(() => {
     if (bookData) {

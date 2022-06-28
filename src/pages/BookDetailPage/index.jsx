@@ -25,8 +25,8 @@ export const BookDetailPage = () => {
   return (
     <>
       <Header />
-      <BookDetail bookData={bookData} />
-      <BorrowReturn bookData={bookData} />
+      <BookDetail bookData={bookData} info={bookData.info} />
+      <BorrowReturn bookData={bookData} id={id} />
       <Footer />
     </>
   );
