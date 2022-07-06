@@ -15,7 +15,8 @@ var jsOption = {
     '<THIRD_PARTY_MODULES>',
     // TODO: 이후에 containers -> template으로 변경하기
     '^@(?:components|pages)(.*)$',
-    '^@(?:assets|constants|styles|util)(.*)$',
+    '^@(?:assets|constants)(.*)$',
+    '^@[?:/](.*)$',
     '^[./]',
   ],
   importOrderSeparation: true,
