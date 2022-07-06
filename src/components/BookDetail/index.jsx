@@ -34,7 +34,7 @@ export const BookDetail = ({ bookData, info }) => {
   };
 
   const bookBorrower = () => {
-    isBorrowed ? setBorrower(userName) : setBorrower('NULL');
+    isBorrowed ? setBorrower(userName) : setBorrower(null);
   };
 
   useEffect(() => {
@@ -51,8 +51,17 @@ export const BookDetail = ({ bookData, info }) => {
   return (
     <StyledBookDetailContainer>
       <StyledBookDetail>대출 기한: {dueDate}</StyledBookDetail>
-      <StyledBookDetail>책 소개: {info && info}</StyledBookDetail>
-      <StyledBookDetail>대출자: {borrower}</StyledBookDetail>
+      <StyledBookDetail>
+        책 소개 :
+        {info ? (
+          <a href={info} target='_blank' rel='no-referrer noreferrer'>
+            {info}
+          </a>
+        ) : (
+          <div>제공된 책 정보가 없습니다.</div>
+        )}
+      </StyledBookDetail>
+      <StyledBookDetail>대출자: {borrower || '없음'}</StyledBookDetail>
     </StyledBookDetailContainer>
   );
 };
