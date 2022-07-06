@@ -1,9 +1,10 @@
-import PropTypes from 'prop-types';
 import { useSetRecoilState } from 'recoil';
-import { genreFilterState } from '../Atom';
+
+import PropTypes from 'prop-types';
+
+import { genreFilterState } from '@components';
+
 import { StyledSideBarComp } from './style';
-
-
 
 function SideBarComp({ genre }) {
   const setGenreFilter = useSetRecoilState(genreFilterState);

@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { doc, getDoc } from 'firebase/firestore';
 
-import { BookDetail, BorrowReturn, Footer, Header } from '../../components';
-import { storeService } from '../../firebase';
+import { BookDetail, BorrowReturn, Footer, Header } from '@components';
+
+import { storeService } from '@/firebase';
 
 export const BookDetailPage = () => {
   const { id } = useParams();

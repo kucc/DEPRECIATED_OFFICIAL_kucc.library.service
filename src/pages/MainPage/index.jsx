@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { collection, getDocs } from 'firebase/firestore';
 
-import { Book, Footer, Header, SearchBox, SideBar } from '../../components';
-import { GenreArray } from '../../constants/GenreArray';
-import { storeService } from '../../firebase';
+import { Book, Footer, Header, SearchBox, SideBar } from '@components';
+
+import { GenreArray } from '@constants';
+
+import { storeService } from '@/firebase';
+
 import { StyledBooksContainer } from './style';
 
 export const MainPage = () => {

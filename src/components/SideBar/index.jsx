@@ -1,4 +1,5 @@
-import { GenreArray } from '../../constants/GenreArray';
+import { GenreArray } from '@constants';
+
 import SideBarComp from './SideBarComp';
 import { StyledSideBar } from './style';
 

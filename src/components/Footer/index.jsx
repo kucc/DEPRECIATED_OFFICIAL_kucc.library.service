@@ -1,8 +1,8 @@
-import React from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { useNavigate } from 'react-router-dom';
 
-import { DefaultLogo } from '../DefaultLogo';
+import { DefaultLogo } from '@components';
+
 import {
   StyledFooterBox,
   StyledFooterContainer,

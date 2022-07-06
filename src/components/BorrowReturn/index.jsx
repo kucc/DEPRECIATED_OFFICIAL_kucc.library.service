@@ -3,9 +3,11 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { getAuth } from 'firebase/auth';
 import { doc, updateDoc } from 'firebase/firestore';
-import { storeService } from 'src/firebase.js';
 
-import { borrowState, loginState } from '../Atom';
+import { borrowState, loginState } from '@components';
+
+import { storeService } from '@/firebase';
+
 import { StyledBorrowReturnButton, StyledBorrowReturnContainer } from './style';
 
 export const BorrowReturn = ({ bookData, id }) => {

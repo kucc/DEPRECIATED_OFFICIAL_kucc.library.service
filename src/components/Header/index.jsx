@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
@@ -10,12 +10,13 @@ import {
   signInWithPopup,
 } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
-import { authService, storeService } from 'src/firebase.js';
 
-import { GenreArray } from '../../constants/GenreArray';
-import { RandomEmoji } from '../../constants/RandomEmoji';
-import { loginState } from '../Atom';
-import { DefaultLogo } from '../DefaultLogo';
+import { DefaultLogo, loginState } from '@components';
+
+import { GenreArray, RandomEmoji } from '@constants';
+
+import { authService, storeService } from '@/firebase';
+
 import {
   StyledHeaderContainer,
   StyledHeaderLogoContainer,

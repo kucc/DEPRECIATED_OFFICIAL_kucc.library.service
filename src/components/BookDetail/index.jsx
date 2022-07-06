@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import { getAuth } from 'firebase/auth';
 import { PropTypes } from 'prop-types';
 
-import { borrowState } from '../Atom';
+import { borrowState } from '@components';
+
 import { StyledBookDetail, StyledBookDetailContainer } from './style';
 
 export const BookDetail = ({ bookData, info }) => {

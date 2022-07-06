@@ -1,6 +1,7 @@
 import { useRecoilState } from 'recoil';
 
-import { searchTermState } from '../Atom';
+import { searchTermState } from '@components';
+
 import { StyledSearchBox, StyledSearchBtn, StyledSearchDiv } from './style';
 
 export function SearchBox() {
